@@ -98,9 +98,12 @@
     
     # Writing image according to type to the output destination and image quality
     switch ( $info[2] ) {
-      case IMAGETYPE_GIF:   imagegif($image_resized, $output, $quality);    break;
+      case IMAGETYPE_GIF:   imagegif($image_resized, $output);    break;
       case IMAGETYPE_JPEG:  imagejpeg($image_resized, $output, $quality);   break;
-      case IMAGETYPE_PNG:   imagepng($image_resized, $output, $quality);    break;
+      case IMAGETYPE_PNG:
+        $quality = 9 - (int)((0.9*$quality)/10.0);
+        imagepng($image_resized, $output, $quality);
+        break;
       default: return false;
     }
 
